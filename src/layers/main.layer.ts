@@ -6,7 +6,7 @@ import { flowConfirm } from "../flows/confirm.flow";
 import { flowSaludo } from "../flows/saludo.flow";
 import { flowDespedida } from "../flows/despedida.flow";
 import { flowMen } from "../flows/carta.flow";
-import { flowAgente } from "../flows/carta.flow";
+import { flowAgente } from "../flows/agente.flow";
 
 import AIClass from "../services/ai/index"
 
