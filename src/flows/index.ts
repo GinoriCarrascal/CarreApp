@@ -7,6 +7,7 @@ import { flowDespedida } from "./despedida.flow";
 import { flowVoice } from "./voice.flow";
 import { flowMen } from "./carta.flow";
 import { flowfreq } from "./freq.flow";
+import { flowAgente } from "./agente.flow";
 
 /**
  * Declaramos todos los flujos que vamos a utilizar
@@ -19,5 +20,6 @@ export default createFlow(
         flowDespedida,
         flowVoice,
         flowMen,
+        flowAgente,
         flowfreq
         ])

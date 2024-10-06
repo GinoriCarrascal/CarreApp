@@ -1,6 +1,6 @@
 import { addKeyword } from "@bot-whatsapp/bot";
 //Generador de id
-//import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 
 interface Context {
   from: string;
@@ -26,4 +26,4 @@ const flowAgente = addKeyword("AGENTE")
   })
   .addAnswer('¡Te hemos agregado a un grupo con un asesor! Gracias');
 
-export default flowAgente;
+export {flowAgente} ;
