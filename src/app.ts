@@ -8,6 +8,8 @@ import flows from './flows';
 
 const ai = new AIClass(process.env.OPENAI_API_KEY, 'gpt-3.5-turbo-16k')
 
+const PORT = process.env.PORT || 3000;  // Usa el puerto de Railway o el puerto 3000 como fallback
+
 const main = async () => {
 
     const provider = createProvider(BaileysProvider)
@@ -18,6 +20,10 @@ const main = async () => {
         provider,
         flow: flows
     }, { extensions: { ai } })
+
+    provider.initHttpServer(3000)
+
+    
 
 }
 

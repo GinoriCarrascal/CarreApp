@@ -4,7 +4,7 @@ import { flowPedido } from "./pedidos.flow";
 import { flowConfirm } from "./confirm.flow";
 import { flowSaludo } from "./saludo.flow";
 import { flowDespedida } from "./despedida.flow";
-import { flowVoice } from "./voice.flow";
+//import { flowVoice } from "./voice.flow";
 import { flowMen } from "./carta.flow";
 import { flowfreq } from "./freq.flow";
 import { flowAgente } from "./agente.flow";
@@ -18,7 +18,7 @@ export default createFlow(
         flowPedido,
         flowConfirm,
         flowDespedida,
-        flowVoice,
+       // flowVoice,
         flowMen,
         flowAgente,
         flowfreq
