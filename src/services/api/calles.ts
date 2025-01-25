@@ -5,12 +5,12 @@ import axios, { AxiosRequestConfig } from 'axios';
   data: any;
 }*/
 
-const getHamburguesas = async (): Promise<any | null> => {
+const getCalles = async (): Promise<any | null> => {
   try {
     const config: AxiosRequestConfig = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:1337/api/menus?pagination[page]=1&pagination[pageSize]=100',
+      url: 'http://localhost:1337/api/calles?pagination[page]=1&pagination[pageSize]=100',
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_KEY}`,
       },
@@ -25,4 +25,4 @@ const getHamburguesas = async (): Promise<any | null> => {
 };
 
 
-export  {getHamburguesas};
+export  {getCalles};

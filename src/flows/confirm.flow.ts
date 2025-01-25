@@ -3,69 +3,93 @@ import { addKeyword, EVENTS } from "@bot-whatsapp/bot";
 import AIClass from "../services/ai/index";
 
 import { getHistoryParse, handleHistory } from "../utils/handleHistory";
+import { generar } from "../utils/others/generateuuid";
 
-import {guardarConcepto} from "../services/api/concepto"
-import {guardarVenta} from "../services/api/ventas"
+import { Usuario } from "../entities/cliente.entity";
+import { Venta } from "../entities/venta.entity";
+import { DetalleVenta } from "../entities/detalleVenta.entity";
 
-const PROMPT = `
-    
-    tu tarea principal es analizar la información proporcionada en el contexto y generar un objeto JSON que se adhiera a la estructura especificada a continuación. 
+import { buscarCliente } from "../services/api/Customer";
 
-    Historial de Conversacion:
-    -----------------------------------
-    {HISTORIAL_CONVERSACION}
-    
-    Objeto JSON a generar:
-       {
-   "nombre": "[obtener el nombre del cliente]",
-   "tipo": "[recojo/delivery]",
-   "direccion": "[obtener la dirección si es para delivery, de lo contrario, null]",
-   "hora_de_recojo": "[obtener la hora si es para recojo, de lo contrario, null]",
-   "metodo": "[obtener el método de pago: yape/plin/transferencia]",
-   "dni": "[número de 8 cifras], de lo contrario null",
-   "importe": [total del pedido],
-   "ventas": [
-     {"plato": "hamburguesa clásica", "cantidad": 2, "precio_unitario": 14},
-     {"plato": "huevo adicional", "cantidad": 1, "precio_unitario": 3}
-   ]
-  
-   Los siguientes datos, son obligatorios: Nombre, tipo, metodo de pago , importe y ventas.
- }
-    `
+import promt from "../utils/promts/promptConfirm";
 
 const generateJsonParse = (history: string) => {
-
-  const mainPrompt = PROMPT
-      .replace('{HISTORIAL_CONVERSACION}', history)
-
-  return mainPrompt
-}
+  const mainPrompt = promt.replace("{HISTORIAL_CONVERSACION}", history);
+  return mainPrompt;
+};
 
 /**
- * Encargado de pedir los datos necesarios para registrar el evento en el calendario
+ * Encargado de pedir los datos necesarios para registrar
+ *
  */
 
-const flowConfirm = addKeyword(EVENTS.ACTION)
-    .addAction(async (ctx, { extensions,provider,state, flowDynamic }) => {
-        const ai = extensions.ai as AIClass
-        const history = getHistoryParse(state)
-        const promptSchedule = generateJsonParse(history)
+const flowConfirm = addKeyword(EVENTS.ACTION).addAction(
+  async (ctx, { extensions, state, flowDynamic }) => {
+    const ai = extensions.ai as AIClass;
+    const history = getHistoryParse(state);
+    const promptSchedule = generateJsonParse(history);
 
-        const text = await ai.createChat([
-            {
-                role: 'system',
-                content: promptSchedule
-            },
-            {
-                role: 'user',
-                content: `Cliente pregunta: ${ctx.body}`
-            }
-        ], 'gpt-4')
+    const text = await ai.createChat(
+      [
+        {
+          role: "system",
+          content: promptSchedule,
+        },
+        {
+          role: "user",
+          content: `Cliente pregunta: ${ctx.body}`,
+        },
+      ],
+      "gpt-4o-mini"
+    );
+
+    // Convertir la cadena JSON a un objeto JavaScript
+    const objeto = JSON.parse(
+      text.replace("```json", " ").replace("```", " ").trim()
+    );
+
+    // Ahora `objeto` es un objeto JavaScript y puedes acceder a sus propiedades
+    console.log(objeto.nombre); // Salida: Ginori
+    console.log(objeto.ventas); // Salida: el array de ventas
+    console.log(objeto.ventas[0].plato); // Salida: Clásica
+    const tel=ctx.from;
+    console.log(tel); // Salida: Clásica
     
-        await guardarConcepto(text)
-        await flowDynamic('Pedido Confirmado. . .')
-    
+    const respuestalcliente = buscarCliente(tel);
+    console.log(respuestalcliente); // Salida: Clásica
+
+    //
+    if (respuestalcliente != null) {
+      //guardamos cliente nuevo
+      //uuid
+      const idCostumer = await generar(4, "C");
+      const cliente = new Usuario(
+        objeto.telefono,
+        objeto.dni,
+        objeto.nombre,
+        idCostumer
+      );
+      cliente.esValido();
+      cliente.crearUsuario();
+      /*
+      if (cliente.esValido) {
+        cliente.crearUsuario();
+        const venta = new Venta(
+          objeto.telefono,
+          objeto.metodo_de_pago,
+          objeto.direccion,
+          objeto.hora_de_recojo,
+          objeto.importe,
+          objeto.tipo
+        );
+        venta.esValido();
+        
+        
+      }*/
     }
-       
-)
-export { flowConfirm }
+
+    await flowDynamic("Pedido Confirmado. . .");
+  }
+);
+
+export { flowConfirm };

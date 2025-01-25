@@ -53,7 +53,7 @@ const handlerAI = async (ctx: any): Promise<string> => {
     if (buffer instanceof Transform) {
         buffer = await streamToBuffer(buffer);
     }
-    console.log(buffer);
+    
 
     const tmpDir = path.join(process.cwd(), 'tmp');
     if (!fs.existsSync(tmpDir)) {

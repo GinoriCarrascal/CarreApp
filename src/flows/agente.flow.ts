@@ -10,9 +10,7 @@ interface Provider {
   getInstance(): Promise<any>;
 }
 
-/**
- * Esto se ejecuta cuando la persona escribe "AGENTE"
- */
+
 const flowAgente = addKeyword("AGENTE")
   .addAnswer(
     "Estamos desviando tu conversación a nuestro agente"

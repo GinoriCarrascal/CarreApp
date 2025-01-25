@@ -39,6 +39,7 @@ class AIClass {
             });
 
             return completion.choices[0].message.content;
+            console.log("llegamos")
         } catch (err) {
             console.error(err);
             return "ERROR";
