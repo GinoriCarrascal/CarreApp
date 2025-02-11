@@ -15,7 +15,6 @@ const getProducto = async (): Promise<any | null> => {
     };
 
     const response = await axios(config);
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.log(e);

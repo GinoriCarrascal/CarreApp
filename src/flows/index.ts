@@ -8,6 +8,7 @@ import { flowVoice } from "./voice.flow";
 import { flowfreq } from "./freq.flow";
 import { flowAgente } from "./agente.flow";
 import { flowHorario } from "./horario.flow";
+import { flowMetPago } from "./metPago.flow";
 
 /**
  * Declaramos todos los flujos que vamos a utilizar
@@ -21,5 +22,6 @@ export default createFlow(
         flowVoice,
         flowAgente,
         flowfreq,
-        flowHorario
+        flowHorario,
+        flowMetPago
         ])

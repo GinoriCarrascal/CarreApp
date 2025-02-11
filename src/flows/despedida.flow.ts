@@ -5,7 +5,7 @@ import { typing } from "../utils/others/typing";
 import { aleatorio } from "../utils/others/aleatorioM";
 import arrayDespedida from "../utils/converflow/despedida";
 
-
+// flow de despedida 
 
 const flowDespedida = addKeyword(["adios", "bye", "chau"])
     .addAction(async (ctx, { state, provider, flowDynamic }) => {

@@ -6,7 +6,8 @@ import { flowConfirm } from "../flows/confirm.flow";
 import { flowSaludo } from "../flows/saludo.flow";
 import { flowDespedida } from "../flows/despedida.flow";
 import { flowAgente } from "../flows/agente.flow";
-import { flowHorario } from "../flows/horario.flow";
+import { flowHorario } from "../flows/horario.flow"; 
+import { flowfreq } from "../flows/freq.flow"; 
 import promt from "../utils/promts/promptMain";
 
 import AIClass from "../services/ai/index";
@@ -52,33 +53,37 @@ export default async (
     try {
       switch (true) {
         case text.includes("INICIO"):
-          console.log("INIVIO");
+          console.log("INICIO");
           return gotoFlow(flowSaludo);
-
+    
         case text.includes("PEDIDO"):
           console.log("Pedido");
           return gotoFlow(flowPedido);
-
+    
+        case text.includes("CARTA"):
+          console.log("Carta");
+          return gotoFlow(flowSaludo);
+    
         case text.includes("CONFIRMACION"):
           console.log("Confirmación");
           return gotoFlow(flowConfirm);
-
+    
         case text.includes("ADIOS"):
           console.log("Adiós");
           return gotoFlow(flowDespedida);
-
+    
         case text.includes("FREC"):
           console.log("Frecuentes");
-        //return gotoFlow(flowMen);
-
-        case text.includes("PAGO"):
-          console.log("Pago");
-          return gotoFlow(flowAgente);
-
+          return gotoFlow(flowfreq); // Agregado return para no caer en el siguiente caso
+    
         case text.includes("AGENTE"):
           console.log("Agente");
           return gotoFlow(flowAgente);
-
+    
+        case text.includes("DIREC"):
+          console.log("Direccion");
+          return gotoFlow(flowAgente);
+    
         default:
           console.log("No matching action found");
           break;
@@ -87,5 +92,6 @@ export default async (
       console.error("Error in switch statement:", error);
       return error;
     }
+    
   }
 };

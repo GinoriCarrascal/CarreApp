@@ -1,55 +1,56 @@
 import { guardarCliente } from "../services/api/customer";
 
 export class Usuario {
-  id: string;
-  telefono: number;
+  idcustomer: string;
+  telefono: string;
   dni: string;
   nombre: string | null;
 
   constructor(
-    telefono: number,
+    telefono: string,
     dni: string,
     nombre: string | null,
-    id: string
+    idcustomer: string
   ) {
     this.telefono = telefono;
     this.dni = dni;
     this.nombre = nombre;
-    this.id = id;
+    this.idcustomer = idcustomer;
   }
 
-  // Método para validar que el id tiene 9 dígitos
-  validarId(): boolean {
+  // Método para validcustomerar que el idcustomer tiene 9 dígitos
+  validcustomeraridcustomer(): boolean {
     return String(this.telefono).length === 9;
   }
 
-  // Método para validar que el dni tiene 8 dígitos numéricos
-  validarDni(): boolean {
+  // Método para validcustomerar que el dni tiene 8 dígitos numéricos
+  validcustomerarDni(): boolean {
     return /^\d{8}$/.test(this.dni);
   }
 
-  // Método para validar que el nombre no es nulo ni vacío
-  validarNombre(): boolean {
+  // Método para validcustomerar que el nombre no es nulo ni vacío
+  validcustomerarNombre(): boolean {
     return this.nombre === null || this.nombre.trim() !== "";
   }
 
-  // Método para validar todos los campos
-  esValido(): boolean {
-    return this.validarId() && this.validarDni() && this.validarNombre();
+  // Método para validcustomerar todos los campos
+  esValidcustomero(): boolean {
+    return this.validcustomeraridcustomer() && this.validcustomerarDni() 
   }
 
   async crearUsuario(): Promise<any> {
     // Datos que se enviarán en el cuerpo de la solicitud POST
-    const datosUsuario = {
-      nombre: this.nombre,
-      dni: this.dni,
-      telefono: this.telefono,
-      id:this.id
+    this.esValidcustomero()
+    const data = {
+      "nombre": this.nombre,
+      "dni": this.dni,
+      "telefono": this.telefono,
+      "idcustomer":this.idcustomer
     };
 
     try {
       // Realizamos la solicitud POST
-      const response = await guardarCliente(datosUsuario);
+      const response = await guardarCliente(data);
       return response;
     } catch (error) {
       console.error("Error en la solicitud:", error);

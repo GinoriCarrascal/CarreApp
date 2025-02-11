@@ -1,4 +1,4 @@
-async function generar(longitud: number, tipo: string): Promise<any> {
+export default function generar(longitud: number, tipo: string) {
   const caracteres =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let identificador = "";

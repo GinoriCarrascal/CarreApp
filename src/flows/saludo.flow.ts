@@ -19,9 +19,10 @@ const flowSaludo = addKeyword(EVENTS.ACTION)
           {
             body: aleatorio(arrayMenu),
             media:
-              "https://carreterobdap-2cfaed4a1bb4.herokuapp.com/uploads/menu_0bfc39e06b.png",
+              "https://carreterobdap-2cfaed4a1bb4.herokuapp.com/uploads/Whats_App_Image_2024_04_11_at_18_46_53_fe6a685522.png",
           },
         ]);
+        await flowDynamic(["🔥 completa los siguientes datos por favor: \n Nombre:\n DNI: (en caso desee boleta) \n Pedido: \n Dirección: \n Recojo o Delivery: \n Método de pago: \n Gracias por su preferencia 🍔"])
       } catch (error) {
         console.log(error);
       }
@@ -31,10 +32,5 @@ const flowSaludo = addKeyword(EVENTS.ACTION)
     }
   });
 
-/* Enviamos la carta */
-/* .addAnswer(`Send video from Local`, 
-        { media: path.join(process.cwd(), 'assets', 'menu.jpg') }
-    )
-/* Mensaje adicional */
 
 export { flowSaludo };

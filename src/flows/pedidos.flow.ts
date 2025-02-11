@@ -33,12 +33,11 @@ const flowPedido = addKeyword(EVENTS.ACTION).addAction(
     const ai = extensions.ai as AIClass;
     const history = getHistoryParse(state);
     const menus = await getProducto();
-    console.log(menus);
 
     const listMenu = menus.data
       .map(
         (menu) =>
-          `articulo:${menu.nombre}, precio:${menu.precio}`
+          `articulo:${menu.nombre}, descripcion:${menu.descripcion} ,precio:${menu.precio}`
       )
       .join("; \n");
      

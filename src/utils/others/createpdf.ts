@@ -11,7 +11,7 @@ type Order = {
 };
 const currentDate = new Date().toLocaleDateString("es-ES");
 
-const generatePDF = (Order: Order[], currentDate: Date) => {
+const generatePDF = (Order: Order[]) => {
   const content: any[] = [];
   //titulo
   content.push({

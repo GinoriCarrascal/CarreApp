@@ -8,13 +8,11 @@ const guardarVenta = async (datosentrantes: any): Promise<any | null> => {
     const config: AxiosRequestConfig = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `${url}/api/venta`,
+      url: `${url}/api/ventas`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      data: {
-        data: { datosentrantes },
-      },
+      data:{"data":datosentrantes},
     };
 
     const response = await axios(config);
